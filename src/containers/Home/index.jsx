@@ -25,9 +25,11 @@ class Home extends Component {
     animated: true, //是否有过渡效果
     activeKey: '0', //默认为0不展示下拉导航列表
     modal: false, //是否显示
-    panelValue: 0  //导航栏下标
+    panelValue: 0,  //导航栏下标
+
 
   }
+  iscroll = {}
   wrapper = React.createRef();
   whole = React.createRef();
   navList = React.createRef();
@@ -64,12 +66,18 @@ class Home extends Component {
         element.className = "cateTag"
         if (index === e || (e.target && e.target.innerText) === element.innerText) {
           element.className = "cateTag nav-selsect-active"
-          // if (e.target) {
-          //   this.wrapper.current.children[0].style.transform = `translate(${-83 * index}px,0px)`
-          //   console.log(this.iscroll.startX)
-          //   this.iscroll.startX = index * -83
-          //   console.log(this.iscroll.startX)
-          // }
+
+          const { style, clientWidth } = this.wrapper.current.children[0]
+          let translateX
+          if (index === this.navList.current.childNodes.length - 1) {
+            translateX = window.document.body.clientWidth - clientWidth
+          }
+          setTimeout(() => {
+            style.transform = `translate(${translateX || -clientWidth / 9 / 1.5 * index}px,0px)`
+            console.log(window.document.body.clientWidth)
+            this.iscroll.x = translateX || index * (-clientWidth / 9 / 1.5)
+          }, 500)
+
           this.setState({
             panelValue: index
           })
@@ -86,20 +94,21 @@ class Home extends Component {
     this.setState({
       panelValue: val
     })
-
     this.switchPage(val)
   }
 
   componentDidMount() {
     //横向滚动
-    new IScroll('#wrapper', {
+    this.iscroll = new IScroll('#wrapper', {
       mouseWheel: true,
-      scrollbars: true,
+      scrollbars: 'custom',
       scrollX: true,
-      interactiveScrollbars: true
+      interactiveScrollbars: true,
+      startX: 0,
+
     })
     //发送请求
-    this.props.reqHome()
+    // this.props.reqHome()
 
   }
   render() {
