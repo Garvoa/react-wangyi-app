@@ -1,0 +1,1 @@
+export const SAVE_HOME_DATA = 'SAVE_HOME_DATA'

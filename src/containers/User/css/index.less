@@ -1,0 +1,222 @@
+.wrap {
+  overflow: hidden;
+}
+.user {
+  width: 100%;
+  height: 150px;
+  background-image: url("../../../static/beijing.png");
+  display: flex;
+  justify-content: space-between;
+  .userleft {
+    display: flex;
+    margin-top: 30px;
+    margin-left: 20px;
+    position: relative;
+    .span1 {
+      position: absolute;
+      right: 20px;
+    }
+    img {
+      border-radius: 50%;
+      width: 70px;
+      height: 70px;
+    }
+    div {
+      padding-top: 10px;
+      color: #fff;
+      p {
+        width: 150px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-size: 20px;
+      }
+      span {
+        font-size: 16px;
+      }
+    }
+  }
+  .userright {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-evenly;
+    p {
+      text-align: right;
+      color: #f9e0c0;
+    }
+    div {
+      animation: name 1s 10;
+      position: relative;
+      width: 82px;
+      border-radius: 50% 0 0 50%;
+      height: 30px;
+      background-color: #574e44;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      .van-icon {
+        position: absolute;
+        left: 10px;
+        top: 15px;
+      }
+    }
+  }
+}
+.myAsset {
+  background-color: white;
+  padding-bottom: 20px;
+}
+.mymoney {
+  display: block;
+  padding: 20px;
+  height: 30px;
+  position: relative;
+  &::after {
+    content: "";
+    width: 100%;
+    height: 1px;
+    transform: scaleY(0.3);
+    position: absolute;
+    bottom: 10px;
+    background-color: #000;
+    left: 10px;
+  }
+}
+.assetList {
+  overflow: hidden;
+  padding-top: 20px;
+  li {
+    float: left;
+    width: 20%;
+
+    text-align: center;
+
+    span {
+      color: red;
+    }
+  }
+}
+.myuMenu {
+  width: 100%;
+  margin-top: 10px;
+  background-color: white;
+  overflow: hidden;
+  .list {
+    a {
+      text-decoration: none;
+      color: #333;
+    }
+    .item {
+      width: 33%;
+      height: 90px;
+      float: left;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      border-right: 1px solid #dddddd;
+      border-bottom: 1px solid #dddddd;
+      &:nth-child(1) {
+        .icon-m {
+          background-position: 8px;
+          background-position-y: -438.7px;
+        }
+      }
+      &:nth-child(2) {
+        .icon-m {
+          background-position: 8px;
+          background-position-y: -466px;
+        }
+      }
+      &:nth-child(3) {
+        .icon-m {
+          background-position: 8px;
+          background-position-y: -494.7px;
+        }
+      }
+      &:nth-child(4) {
+        .icon-m {
+          background-position: 8px;
+          background-position-y: -524.7px;
+        }
+      }
+      &:nth-child(5) {
+        .icon-m {
+          background-position: 8px;
+          background-position-y: -553.7px;
+        }
+      }
+      &:nth-child(6) {
+        .icon-m {
+          background-position: 8px;
+          background-position-y: -581.7px;
+        }
+      }
+      &:nth-child(7) {
+        .icon-m {
+          background-position: 8px;
+          background-position-y: -610.7px;
+        }
+      }
+      &:nth-child(8) {
+        .icon-m {
+          background-position: 8px;
+          background-position-y: -408.7px;
+        }
+      }
+      &:nth-child(9) {
+        .icon-m {
+          background-position: 8px;
+          background-position-y: -382px;
+        }
+      }
+      &:nth-child(10) {
+        .icon-m {
+          background-position: 8px;
+          background-position-y: -355px;
+        }
+      }
+      &:nth-child(11) {
+        .icon-m {
+          background-position: 8px;
+          background-position-y: -328px;
+        }
+      }
+      &:nth-child(12) {
+        .icon-m {
+          background-position: 8px;
+          background-position-y: -298px;
+        }
+      }
+
+      .icon-m {
+        width: 40px;
+        height: 30px;
+        background-image: url("../../../static/7a838705-f2cd-4bf2-9a86-60eaa85e7241.png");
+        background-size: 40px, 30px;
+        background-repeat: no-repeat;
+      }
+    }
+  }
+}
+footer {
+  text-align: center;
+  button {
+    width: 90%;
+    height: 50px;
+
+    margin: 20px 0px 60px 0;
+  }
+}
+@keyframes name {
+  0% {
+    font-size: 12px;
+  }
+  50% {
+    font-size: 16px;
+  }
+  100% {
+    font-size: 12px;
+  }
+}

@@ -1,0 +1,165 @@
+.home {
+  width: 100%;
+  height: 100%;
+  .nav-head {
+    background-color: white;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    nav {
+      padding-top: 10px;
+      position: relative;
+      z-index: 100;
+      background-color: white;
+      .nav-head-line {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .logo {
+          width: 70px;
+          height: 20px;
+          margin-right: 10px;
+        }
+        .loginSeach {
+          height: 30px;
+          padding: 5px 5px 0 5px;
+          width: 210px;
+        }
+        .loginBtn {
+          margin-left: 10px;
+          border-radius: 5px;
+          border: red 1px solid;
+          color: red;
+          font-size: 10px;
+          height: 20px;
+          width: 40px;
+          padding: 0;
+        }
+      }
+    }
+
+    .nav-selsect-active {
+      color: red;
+    }
+
+    .nav-selsect {
+      position: relative;
+      z-index: 10;
+      #toggle {
+        position: absolute;
+        right: 0px;
+        top: 1px;
+        width: 83px;
+        height: 43px;
+        background-color: white;
+        text-align: center;
+        line-height: 40px;
+
+        z-index: 1;
+      }
+      .tabAlter {
+        position: absolute;
+        left: 20px;
+        top: 10px;
+      }
+
+      .moreCate {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 5px;
+        // justify-content: space-around;
+        // align-content: space-evenly;
+        span {
+          display: inline-block;
+          padding: 5px 10px;
+          font-size: 14px;
+        }
+        .nav-selsect-active {
+          color: red;
+        }
+        .cateTag {
+          margin: 10px;
+          width: 70px;
+          height: 30px;
+          padding: 0px;
+        }
+      }
+      .za-collapse {
+        position: absolute;
+        background-color: white;
+        .za-collapse-item__title {
+          position: absolute;
+          height: 40px;
+          width: 60px;
+          line-height: 40px;
+          top: -40px;
+          right: 0px;
+          background-color: white;
+          &::after {
+            border-bottom: 0;
+            border-top: 0;
+          }
+        }
+      }
+      .outer {
+        height: 30px;
+        #wrapper {
+          overflow: hidden;
+        }
+        ul {
+          width: 850px;
+          padding-right: 100px;
+          height: 30px;
+        }
+        .li {
+          width: 100px;
+          height: 30px;
+          float: left;
+          text-align: center;
+          line-height: 30px;
+        }
+        .za-tabs__line {
+          top: 25px;
+          height: 3px;
+          .za-tabs__line__inner {
+            background-color: red;
+          }
+        }
+        li.active {
+          color: hotpink;
+        }
+        .list {
+          overflow: hidden;
+          ul {
+            display: flex;
+            white-space: nowrap;
+          }
+        }
+      }
+      .whole {
+        position: absolute;
+        left: 20px;
+        top: 0px;
+        display: none;
+      }
+    }
+
+    // .nav-Line {
+    //   width: 40px;
+    //   height: 2px;
+    //   background-color: red;
+    //   transform: translateX(30px);
+    // }
+  }
+}
+.za-mask {
+  z-index: 1;
+}
+.za-popup__wrapper {
+  z-index: 1;
+}
+.za-modal__dialog {
+  position: absolute;
+}
