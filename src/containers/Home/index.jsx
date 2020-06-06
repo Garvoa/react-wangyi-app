@@ -1,32 +1,23 @@
 import React, { Component } from 'react'
-import { createSaveHomeAsyncAction } from "../../redux/actions/home"
+import { createSaveHomeAction } from "../../redux/actions/home"
 import "./css/index.less"
 import IScroll from "iscroll/build/iscroll-lite"
 import { Collapse, Carousel, Modal, Tabs } from 'zarm';
 import { connect } from "react-redux"
+import { reqHome } from "../../api"
+
 const { Panel } = Tabs;
 // 数据
-const ITEMS = [
-  'https://static.zhongan.com/website/health/zarm/images/banners/1.png',
-  'https://static.zhongan.com/website/health/zarm/images/banners/2.png',
-  'https://static.zhongan.com/website/health/zarm/images/banners/3.png',
-];
-const contentRender = () => {
-  return ITEMS.map((item, i) => {
-    return (
-      <div className="carousel__item__pic" key={+i}>
-        <img src={item} alt="" draggable={false} />
-      </div>
-    );
-  });
-}
 class Home extends Component {
   state = {
     animated: true, //是否有过渡效果
     activeKey: '0', //默认为0不展示下拉导航列表
     modal: false, //是否显示
     panelValue: 0,  //导航栏下标
-
+    ITEMS: [], //轮播图
+    kingKongList: [],
+    policyDescList: [],
+    indexActivityModule: []
 
   }
   iscroll = {}
@@ -70,14 +61,13 @@ class Home extends Component {
           const { style, clientWidth } = this.wrapper.current.children[0]
           let translateX
           if (index === this.navList.current.childNodes.length - 1) {
-            translateX = window.document.body.clientWidth - clientWidth
+            translateX = index - 1
           }
           setTimeout(() => {
-            style.transform = `translate(${translateX || -clientWidth / 9 / 1.5 * index}px,0px)`
-            console.log(window.document.body.clientWidth)
-            this.iscroll.x = translateX || index * (-clientWidth / 9 / 1.5)
+            //点哪里，移动到哪里
+            style.transform = `translate(${-clientWidth / 9 / 1.5 * (translateX || index)}px,0px)`
+            this.iscroll.x = (translateX || index) * (-clientWidth / 9 / 1.5)
           }, 500)
-
           this.setState({
             panelValue: index
           })
@@ -96,7 +86,9 @@ class Home extends Component {
     })
     this.switchPage(val)
   }
-
+  reqHomeData = () => {
+    return reqHome()
+  }
   componentDidMount() {
     //横向滚动
     this.iscroll = new IScroll('#wrapper', {
@@ -105,14 +97,29 @@ class Home extends Component {
       scrollX: true,
       interactiveScrollbars: true,
       startX: 0,
-
     })
     //发送请求
-    // this.props.reqHome()
+    this.reqHomeData().then((result) => {
+      const { data, code, msg } = result.data
+      if (code === 200) {
+        this.props.getHome(data)
+        const { policyDescList, focusList, kingKongModule, indexActivityModule } = this.props.homeData
+        this.setState({
+          ITEMS: focusList,
+          policyDescList,
+          kingKongList: kingKongModule.kingKongList,
+          indexActivityModule
+        })
+
+      } else {
+        alert(msg)
+      }
+    })
+
 
   }
   render() {
-    const { animated, activeKey, modal, panelValue } = this.state;
+    const { animated, activeKey, modal, panelValue, ITEMS, policyDescList, kingKongList, indexActivityModule } = this.state;
     return (
 
       <div className="home">
@@ -177,24 +184,233 @@ class Home extends Component {
             </div>
             <div className="nav-Line"></div>
           </nav>
+        </div>
+        <section>
           <Carousel
             autoPlay
             loop
             direction="left"
           >
-            {contentRender()}
+            {ITEMS.map((item, i) => {
+              return (
+                <div className="carousel__item__pic" key={+i}>
+                  <img src={item.picUrl} alt="" draggable={false} />
+                </div>
+              )
+            })}
           </Carousel>
-        </div>
+          <ul className="g-grow">
+            {
+              policyDescList && policyDescList.map((item, index) => {
+                return (
+                  <li className="item" key={index}>
+                    <img src={item.icon} alt="" />
+                    <span>{item.desc}</span>
+                  </li>)
+              }
+              )
+            }
+          </ul>
+          <ul className="goodsList">
+            {
+              kingKongList && kingKongList.map((kingKong, index) => {
+                return (
+                  <li className="goodsItem" key={index}>
+                    <img src={kingKong.picUrl} alt="" />
+                    <span>{kingKong.text}</span>
+                  </li>
+                )
+              })
+            }
+          </ul>
+          <div className="promotionModule">
+            <div className="promItem">
+              <a href="###">
+                <img
+                  src="https://yanxuan.nosdn.127.net/7fd95465634b18169466121fae470269.png?quality=75&type=webp&imageView&thumbnail=750x0"
+                  alt=""
+                />
+              </a>
+            </div>
 
-      </div >
+            <div className="promItem">
+              <a href="###">
+                <img
+                  src="https://yanxuan.nosdn.127.net/6dc4a8e77b84faef0264dc427c4b1b8b.png?quality=75&type=webp&imageView&thumbnail=750x0"
+                  alt=""
+                />
+              </a>
+            </div>
+
+            <div className="floor">
+              <a href="###">
+                <img
+                  src="https://yanxuan.nosdn.127.net/24d20597f75afc86098b0b99c11033bf.png?quality=75&type=webp&imageView&thumbnail=375x0"
+                  alt=""
+                />
+              </a>
+              <a href="###">
+                <img
+                  src="https://yanxuan.nosdn.127.net/16ef9b23050650f50604e825fa61e206.png?quality=75&type=webp&imageView&thumbnail=375x0"
+                  alt=""
+                />
+              </a>
+            </div>
+          </div>
+
+          <div className="freshGift">
+            <h2>一 新人专享礼 一</h2>
+            <div className="freshGift-content">
+              <div className="freshGift-left">
+                <span>新人专享礼包</span>
+                <img src="//yanxuan.nosdn.127.net/352b0ea9b2d058094956efde167ef852.png" alt="" />
+              </div>
+              <div className="freshGift-right">
+                {
+                  indexActivityModule.map((item, index) => {
+                    return (
+                      <div
+                        className="freshGift-right-item"
+                        key={index}
+                      >
+                        <div>
+                          <p>{item.title}</p>
+                          <p>{item.subTitle || item.tag}</p>
+                        </div>
+                        <img src={item.picUrl || item.targetUrl} alt="" />
+                      </div>
+
+                    )
+                  })
+                }
+              </div>
+            </div>
+          </div>
+
+          <div className="m-popularItemModule m-indexFloor">
+            <div className="moduleTitle">
+              <div className="left">人气推荐</div>
+              <a className="right" href="/item/recommend">
+                更多>
+        <i className="icon u-icon u-icon-index-titleArrow"></i>
+              </a>
+            </div>
+            <a className="spItem">
+              <div className="wraper">
+                <div className="m-lazyload m-lazyload-loaded">
+                  <img
+                    data-original="https://yanxuan-item.nosdn.127.net/02dd07dbee4575a71afa30fd680a6ec7.png?quality=75&amp;type=webp&amp;imageView&amp;thumbnail=280x280"
+                    data-src="https://yanxuan-item.nosdn.127.net/02dd07dbee4575a71afa30fd680a6ec7.png?quality=75&amp;type=webp&amp;imageView&amp;thumbnail=280x280"
+                    className="swiper-lazy"
+                    src="https://yanxuan-item.nosdn.127.net/02dd07dbee4575a71afa30fd680a6ec7.png?quality=75&amp;type=webp&amp;imageView&amp;thumbnail=280x280"
+                    style={{ display: 'inline' }} alt=""
+                  />
+                </div>
+              </div>
+              <div className="spItemdesc">
+                <div className="name">15分钟快速救脸，射频多功能美容仪</div>
+                <div className="desc">掌心里的“美容院”</div>
+                <div className="price">¥899</div>
+              </div>
+            </a>
+            <div className="m-indexItem m-goodGrid">
+              <ul className="list">
+                <li className="item">
+                  <div className="good">
+                    <div className="hd">
+                      <div className="wraper">
+                        <div className="m-lazyload m-lazyload-loaded">
+                          <img
+                            data-original="https://yanxuan-item.nosdn.127.net/ac0c99a7494504ef506de1bb03bbacc7.png?type=webp&imageView&quality=65&thumbnail=330x330"
+                            data-src="https://yanxuan-item.nosdn.127.net/ac0c99a7494504ef506de1bb03bbacc7.png?type=webp&imageView&quality=65&thumbnail=330x330"
+                            className="swiper-lazy"
+                            src="https://yanxuan-item.nosdn.127.net/ac0c99a7494504ef506de1bb03bbacc7.png?type=webp&imageView&quality=65&thumbnail=330x330" alt=""
+                            style={{ display: 'block' }}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div className="name">【抢购】一次性医用口罩 1...</div>
+                    <div className="newItemDesc">医用级别防护，99%细菌过滤效率 三层安全防护</div>
+                    <div className="price">
+                      <span className="priceInner">
+                        <span>¥60</span>
+                      </span>
+                    </div>
+                    {/* <!-- <div className="tagWraper new">
+                      <span className="tag-status-new gradientPrice">特价</span>
+                    </div>--> */}
+                  </div>
+                </li>
+                <li className="item">
+                  <div className="good">
+                    <div className="hd">
+                      <div className="wraper">
+                        <div className="m-lazyload m-lazyload-loaded">
+                          <img
+                            data-original="https://yanxuan-item.nosdn.127.net/eb5aaec3178da93222aeca4b7fcaf757.png?type=webp&amp;imageView&amp;quality=65&amp;thumbnail=330x330"
+                            data-src="https://yanxuan-item.nosdn.127.net/eb5aaec3178da93222aeca4b7fcaf757.png?type=webp&amp;imageView&amp;quality=65&amp;thumbnail=330x330"
+                            className="swiper-lazy"
+                            src="https://yanxuan-item.nosdn.127.net/eb5aaec3178da93222aeca4b7fcaf757.png?type=webp&amp;imageView&amp;quality=65&amp;thumbnail=330x330" alt=""
+                            style={{ display: 'block' }}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div className="name">告别啃食尴尬，秘制无骨凤爪...</div>
+                    <div className="newItemDesc">肉嘟嘟，大口吃</div>
+                    <div className="price">
+                      <span>¥13</span>
+                    </div>
+                  </div>
+                </li>
+                <li className="item">
+                  <div className="good">
+                    <div className="hd">
+                      <div className="wraper">
+                        <div className="m-lazyload m-lazyload-loaded">
+                          <img
+                            data-original="https://yanxuan-item.nosdn.127.net/5a0d395159cf7f51d48c45599b96df3f.png?type=webp&amp;imageView&amp;quality=65&amp;thumbnail=330x330"
+                            data-src="https://yanxuan-item.nosdn.127.net/5a0d395159cf7f51d48c45599b96df3f.png?type=webp&amp;imageView&amp;quality=65&amp;thumbnail=330x330"
+                            className="swiper-lazy"
+                            src="https://yanxuan-item.nosdn.127.net/5a0d395159cf7f51d48c45599b96df3f.png?type=webp&amp;imageView&amp;quality=65&amp;thumbnail=330x330" alt=""
+                            style={{ display: 'block' }}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div className="name">男式精梳棉经典POLO衫</div>
+                    <div className="newItemDesc">甄选面料，经典百搭版型</div>
+                    <div className="price">
+                      <span>¥99</span>
+                    </div>
+                    <span></span>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+        <footer className="footer">
+          <div className="bd">
+            <button>下载APP</button>
+            <button>电脑版</button>
+          </div>
+
+          <p>
+            网易公司版权所有 © 1997-2020
+      <br />食品经营许可证：JY13301080111719
+    </p>
+        </footer>
+      </div>
     )
   }
 }
 export default connect(
   (state) => ({
-
+    homeData: state.home
   }),
   {
-    reqHome: createSaveHomeAsyncAction
+    getHome: createSaveHomeAction
   }
 )(Home)

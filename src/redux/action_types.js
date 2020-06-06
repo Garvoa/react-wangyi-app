@@ -1,1 +1,2 @@
 export const SAVE_HOME_DATA = 'SAVE_HOME_DATA'
+export const SAVE_LIST_DATA = "SAVE_LIST_DATA"

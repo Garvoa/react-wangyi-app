@@ -3,11 +3,16 @@
   height: 100%;
   background-color: #eee;
   header {
-    width: 90%;
-    padding: 10px 5%;
-    position: relative;
+    background-color: #eee;
+    width: 100%;
+    left: 0px;
+    right: 0px;
+    margin: auto;
+    position: absolute;
     overflow: hidden;
-
+    height: 50px;
+    top: 0px;
+    z-index: 100;
     span {
       width: 70px;
       white-space: nowrap;
@@ -31,12 +36,13 @@
     }
   }
   .swiper {
+    // margin-top: 50px;
     background-image: url("../../../static/u=3959410512,1984184250&fm=26&gp=0.jpg");
     // background: no-repeat;
     width: 100%;
     padding-bottom: 20px;
     .font {
-      padding: 30px;
+      // padding: 30px;
       span {
         color: #ffffff;
       }
@@ -61,8 +67,9 @@
         .swiper-slide {
           margin-top: 5px;
           text-align: center;
-
-          div {
+          width: 100px;
+          .swiper-item {
+            width: 100px;
             margin-top: 10px;
             span {
               white-space: nowrap;
@@ -77,42 +84,82 @@
           }
         }
       }
-    }
-  }
-  section {
-    display: flex;
-    justify-content: space-evenly;
-    margin-top: 10px;
-    .content {
-      // width: 50%;
-      width: 45%;
-      // padding: 10px;
-      .contentitem {
-        border-radius: 10px;
-        // border: 1px solid #111111;
-        background-color: white;
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-        align-items: center;
-        margin-bottom: 10px;
-        padding-bottom: 10px;
-        .m-lookDetail {
-          width: 100%;
-          padding-top: 10px;
+
+      /deep/ .swiper-pagination {
+        bottom: 5px;
+        /deep/ .swiper-pagination-customs {
+          width: 30px;
+          height: 4px;
+          display: inline-block;
+          background: #000;
+          opacity: 0.3;
+          margin-top: 5px;
+        }
+
+        /*自定义分页器激活时的样式表现*/
+        /deep/ .swiper-pagination-customs-active {
+          opacity: 1;
+          background-color: #f78e00;
         }
       }
     }
-    .m-image {
-      border-radius: 10px 10px 0 0px;
+  }
+  section {
+    // display: flex;
+    // justify-content: space-evenly;
+    // margin-top: 10px;
+    height: 100%;
+    .za-pull {
       width: 100%;
-    }
-    .m-userName {
-      width: 20px;
-      height: 20px;
-      vertical-align: bottom;
-      border-radius: 50%;
-      margin-left: 10px;
+      max-height: 900px !important;
+      max-width: 100%;
+      padding-top: 350px;
+      top: -300px;
+      .za-pull__content {
+        position: relative;
+        z-index: 1;
+        margin-bottom: 5%;
+
+        background-color: #eeeeee;
+        .za-pull__body {
+          .list {
+            display: flex;
+            justify-content: space-evenly;
+            margin-top: 10px;
+            .content {
+              // width: 50%;
+              width: 45%;
+              // padding: 10px;
+              .contentitem {
+                border-radius: 10px;
+                // border: 1px solid #111111;
+                background-color: white;
+                display: flex;
+                justify-content: center;
+                flex-direction: column;
+                align-items: center;
+                margin-bottom: 10px;
+                padding-bottom: 10px;
+                .m-lookDetail {
+                  width: 100%;
+                  padding-top: 10px;
+                }
+              }
+            }
+            .m-image {
+              border-radius: 10px 10px 0 0px;
+              width: 100%;
+            }
+            .m-userName {
+              width: 20px;
+              height: 20px;
+              vertical-align: bottom;
+              border-radius: 50%;
+              margin-left: 10px;
+            }
+          }
+        }
+      }
     }
   }
 }

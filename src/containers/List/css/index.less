@@ -2,38 +2,51 @@
   width: 100%;
   height: 100%;
   text-align: center;
-  .search {
-    margin-top: 10px;
-    border-radius: 10px;
-    background-color: #dddddd;
-    width: 90%;
-    height: 40px;
-    .icon {
-      vertical-align: middle;
+  .wrap {
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    margin: auto;
+    padding-top: 15px;
+    height: 60px;
+    background-color: green;
+
+    .search {
+      border-radius: 10px;
+      border: 1px solid green;
+      width: 95%;
+      font-size: 16px;
+      .icon {
+        vertical-align: middle;
+      }
     }
   }
   .line {
     width: 100%;
     height: 1px;
-    margin-top: 10px;
-    background-color: #dddddd;
+    background-color: green;
+    position: absolute;
+    top: 60px;
   }
   .centent {
     display: flex;
-    position: relative;
     .left {
       white-space: nowrap;
       padding-right: 10px;
-      border-right: 1px solid #dddddd;
-
+      border-right: 1px solid green;
+      position: absolute;
+      top: 60px;
       .item {
-        padding: 30px 0 0 10px;
+        padding: 20px 0 0 10px;
       }
       .active {
         color: red;
       }
     }
+
     .right {
+      margin-left: 80px;
+      margin-top: 80px;
       .banner {
         width: 250px;
         margin: 10px;
@@ -54,13 +67,6 @@
           }
         }
       }
-    }
-    .punctuation {
-      width: 2px;
-      height: 20px;
-      position: absolute;
-      background-color: red;
-      transform: translatey(30px);
     }
   }
 }
