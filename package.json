@@ -21,7 +21,7 @@
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0",
-    "swiper": "^5.4.2",
+    "swiper": "^6.5.1",
     "zarm": "^2.3.3"
   },
   "scripts": {
